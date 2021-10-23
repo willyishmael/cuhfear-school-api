@@ -6,24 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateHumanResourcesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('human_resources', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama', 50);
+            $table->string('jenis_kelamin', 10);
+            $table->string('nip')->unique();
+            $table->string('tanggal_lahir');
+            $table->string('peran', 20);
+            $table->string('jabatan', 20);
+            $table->string('foto');
+            $table->timestampsTz();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('human_resources');

@@ -15,8 +15,8 @@ class HumanResourceFactory extends Factory
             'nama' => $this->faker->name(),
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki','Perempuan']),
             'nip' => rand(1000000000, 9999999999),
-            'tanggal_lahir' => $this->faker->date($max = '1995-12-31'),
-            'peran' => $this->faker->randomElement(['Guru','Staf Tata Usaha', ]),
+            'tanggal_lahir' => $this->faker->date(),
+            'peran' => $this->faker->randomElement(['Guru','Staf Tata Usaha', 'Petugas Keamanan', 'Petugas Kebersihan']),
             'foto' => $this->faker->imageUrl($category = 'people')
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\human_resource;
+use App\Models\HumanResource;
 use Illuminate\Http\Request;
 
 class HumanResourceController extends Controller
@@ -41,10 +41,10 @@ class HumanResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\human_resource  $human_resource
+     * @param  \App\Models\HumanResource  $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function show(human_resource $human_resource)
+    public function show(HumanResource $human_resource)
     {
         //
     }
@@ -52,10 +52,10 @@ class HumanResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\human_resource  $human_resource
+     * @param  \App\Models\HumanResource  $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function edit(human_resource $human_resource)
+    public function edit(HumanResource $human_resource)
     {
         //
     }
@@ -67,7 +67,7 @@ class HumanResourceController extends Controller
      * @param  \App\Models\human_resource  $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, human_resource $human_resource)
+    public function update(Request $request, HumanResource $human_resource)
     {
         //
     }
@@ -78,7 +78,7 @@ class HumanResourceController extends Controller
      * @param  \App\Models\human_resource  $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function destroy(human_resource $human_resource)
+    public function destroy(HumanResource $human_resource)
     {
         //
     }

@@ -12,12 +12,12 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'nama' => $this->faker->name(),
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki','Perempuan']),
-            'nisn' => $this->faker->numberBeetwen(1000000000, 9999999999),
+            'nisn' => rand(1000000000, 9999999999),
             'tanggal_lahir' => $this->faker->date($max = '1995-12-31'),
             'jurusan' => $this->faker->randomElement(['IPA','IPS']),
-            'tahun_masuk' => $this->faker->numberBeetwen(2015, 2021),
+            'tahun_masuk' => rand(2015, 2021),
             'status' => 'aktif'
         ];
     }

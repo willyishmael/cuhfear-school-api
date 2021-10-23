@@ -11,6 +11,6 @@ class StudentSeeder extends Seeder
     {
         Student::factory()->count(150)->create();
 
-        Student::where('tahun_masuk' < '2018')->update(['status' => 'lulus']);
+        Student::where('tahun_masuk' , '<' , '2018')->update(['status' => 'lulus']);
     }
 }

@@ -16,7 +16,8 @@ class CreateStudentsTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('jurusan', 20);
             $table->year('tahun_masuk');
-            $table->string('jabatan');
+            $table->string('jabatan')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

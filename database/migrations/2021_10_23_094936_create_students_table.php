@@ -6,24 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStudentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('nama', 50);
+            $table->string('jenis_kelamin', 20);
+            $table->string('nisn', 20)->unique();
+            $table->date('tanggal_lahir');
+            $table->string('jurusan', 20);
+            $table->year('tahun_masuk');
+            $table->string('jabatan');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('students');

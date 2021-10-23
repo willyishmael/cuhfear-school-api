@@ -13,9 +13,9 @@ class CreateHumanResourcesTable extends Migration
             $table->string('nama', 50);
             $table->string('jenis_kelamin', 10);
             $table->string('nip', 20)->unique();
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string('peran', 20);
-            $table->string('jabatan', 20);
+            $table->string('jabatan', 20)->nullable();
             $table->string('foto');
             $table->timestampsTz();
         });

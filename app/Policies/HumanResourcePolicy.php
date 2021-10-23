@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\human_resource;
+use App\Models\HumanResource;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class HumanResourcePolicy
@@ -25,10 +25,10 @@ class HumanResourcePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\human_resource  $humanResource
+     * @param  \App\Models\HumanResource  $humanResource
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, human_resource $humanResource)
+    public function view(User $user, HumanResource $humanResource)
     {
         //
     }
@@ -48,10 +48,10 @@ class HumanResourcePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\human_resource  $humanResource
+     * @param  \App\Models\HumanResource  $humanResource
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, human_resource $humanResource)
+    public function update(User $user, HumanResource $humanResource)
     {
         //
     }
@@ -60,10 +60,10 @@ class HumanResourcePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\human_resource  $humanResource
+     * @param  \App\Models\HumanResource  $humanResource
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, human_resource $humanResource)
+    public function delete(User $user, HumanResource $humanResource)
     {
         //
     }
@@ -72,10 +72,10 @@ class HumanResourcePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\human_resource  $humanResource
+     * @param  \App\Models\HumanResource  $humanResource
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, human_resource $humanResource)
+    public function restore(User $user, HumanResource $humanResource)
     {
         //
     }
@@ -84,10 +84,10 @@ class HumanResourcePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\human_resource  $humanResource
+     * @param  \App\Models\HumanResource  $humanResource
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, human_resource $humanResource)
+    public function forceDelete(User $user, HumanResource $humanResource)
     {
         //
     }

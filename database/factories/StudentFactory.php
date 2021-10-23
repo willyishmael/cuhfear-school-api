@@ -7,22 +7,18 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Student::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki','Perempuan']),
+            'nisn' => $this->faker->numberBeetwen(1000000000, 9999999999),
+            'tanggal_lahir' => $this->faker->date($max = '1995-12-31'),
+            'jurusan' => $this->faker->randomElement(['IPA','IPS']),
+            'tahun_masuk' => $this->faker->numberBeetwen(2015, 2021),
+            'status' => 'aktif'
         ];
     }
 }

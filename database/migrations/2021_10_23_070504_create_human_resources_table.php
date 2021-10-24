@@ -12,7 +12,7 @@ class CreateHumanResourcesTable extends Migration
             $table->id();
             $table->string('nama', 50);
             $table->string('jenis_kelamin', 10);
-            $table->string('nip', 20)->unique();
+            $table->string('nip', 20)->unique()->nullable();
             $table->date('tanggal_lahir');
             $table->string('peran', 20);
             $table->string('jabatan', 20)->nullable();

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HumanResourceController;
+use App\Models\HumanResource;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resources([
+    'human-resource' => HumanResourceController::class,
+]);

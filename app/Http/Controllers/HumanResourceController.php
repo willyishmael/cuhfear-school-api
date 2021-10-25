@@ -80,7 +80,7 @@ class HumanResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\human_resource  $human_resource
+     * @param  \App\Models\HumanResource   $human_resource
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, HumanResource $human_resource, $id)
@@ -114,7 +114,7 @@ class HumanResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\human_resource  $human_resource
+     * @param  \App\Models\HumanResource   $human_resource
      * @return \Illuminate\Http\Response
      */
     public function destroy(HumanResource $human_resource, $id)

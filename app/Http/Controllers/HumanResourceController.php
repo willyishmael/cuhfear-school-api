@@ -14,7 +14,9 @@ class HumanResourceController extends Controller
      */
     public function index()
     {
-        //
+        $human_resource = HumanResource::all();
+
+        return view('human-resource.index', ['human_resource' => $human_resource]);
     }
 
     /**

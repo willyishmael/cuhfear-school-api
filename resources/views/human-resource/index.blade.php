@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cuhfear</title>
+    <title>Cuhfear Human Resource</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
         <a class="navbar-brand" href="{{ URL::to('human-resource') }}">human resource Alert</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="{{ URL::to('human-resource') }}">View All human-resource</a></li>
-        <li><a href="{{ URL::to('human-resource/create') }}">Create a human resource</a>
+        <li><a href="{{ URL::to('human-resource') }}">View All Data</a></li>
+        <li><a href="{{ URL::to('human-resource/create') }}">Create Data</a>
     </ul>
 </nav>
 
@@ -54,10 +54,10 @@
                 <!-- we will add this later since its a little more complicated than the other two buttons -->
 
                 <!-- show the human resource (uses the show method found at GET /human-resource/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('human-resource/' . $value->id) }}">Show this human resource</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('human-resource/' . $value->id) }}">Show</a>
 
                 <!-- edit this human resource (uses the edit method found at GET /human-resource/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('human-resource/' . $value->id . '/edit') }}">Edit this human resource</a>
+                <a class="btn btn-small btn-info" href="{{ URL::to('human-resource/' . $value->id . '/edit') }}">Edit</a>
 
             </td>
         </tr>

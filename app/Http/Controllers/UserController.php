@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * Auth login
+     *
+     * @param $request->email
+     * @param $request->password
+     * @return $user
+     * @return $token
+     */
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -29,6 +37,12 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * Auth logout
+     *
+     * @param $request->user()
+     * @return void
+     */
     public function logout(Request $request)
     {
         $user = $request->user();
@@ -42,6 +56,12 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * Get user information
+     *
+     * @param $request->user()
+     * @return $user
+     */
     public function user(Request $request)
     {
         $user = $request->user();

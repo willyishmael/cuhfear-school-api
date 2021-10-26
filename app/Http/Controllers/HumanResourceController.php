@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\HumanResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HumanResourceController extends Controller
 {
+    /**
+     * Check user token for auth
+     *
+     * @param string $remember_token
+     * @return boolean $user_is_null
+     */
+    public function checkRememberToken($remember_token)
+    {
+        $user = User::where('remember_token', $remember_token)->first();
+        return $user == null ? true : false;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,16 +33,6 @@ class HumanResourceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,6 +40,12 @@ class HumanResourceController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->checkRememberToken($request['remember_token'])) {
+            return response()->json([
+                'message' => 'not a valid user, please re login',
+                'redirect_to' => 'login page'
+            ]);
+        }
         $validated = $request->validate([
             'nama' => 'required|max:50',
             'jenis_kelamin' => 'required|max:20',
@@ -60,22 +69,11 @@ class HumanResourceController extends Controller
      * @param  \App\Models\HumanResource  $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function show(HumanResource $human_resource)
+    public function show($id)
     {
         return response()->json([
-            'human_resource' => $human_resource->all()
+            'human_resource' => HumanResource::find($id)
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\HumanResource  $human_resource
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(HumanResource $human_resource)
-    {
-        //
     }
 
     /**
@@ -85,9 +83,10 @@ class HumanResourceController extends Controller
      * @param  \App\Models\HumanResource   $human_resource
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HumanResource $human_resource, $id)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'remember_token' => 'required',
             'nama' => 'required|max:50',
             'jenis_kelamin' => 'required|max:20',
             'nip' => 'max:20|nullable',
@@ -97,7 +96,14 @@ class HumanResourceController extends Controller
             'foto' => 'image|nullable'
         ]);
 
-        $hr = $human_resource->find($id);
+        if (!User::check_token($validated['remember_token'])) {
+            return response()->json([
+                'message' => 'not a valid user, please re login',
+                'redirect_to' => 'login page'
+            ]);
+        }
+
+        $hr = HumanResource::find($id);
         $hr->nama = $validated['nama'];
         $hr->jenis_kelamin = $validated['jenis_kelamin'];
         $hr->nip = $validated['nip'];

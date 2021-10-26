@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HumanResourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('human-resource', HumanResourceController::class)
+    ->except(['create', 'edit']);
+
+/**
+ * testing routes
+ */
+Route::get('/test', [HumanResourceController::class, 'test']);

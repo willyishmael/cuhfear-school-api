@@ -46,6 +46,7 @@ class HumanResourceController extends Controller
                 'redirect_to' => 'login page'
             ]);
         }
+
         $validated = $request->validate([
             'nama' => 'required|max:50',
             'jenis_kelamin' => 'required|max:20',
@@ -66,7 +67,7 @@ class HumanResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HumanResource  $human_resource
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -80,11 +81,18 @@ class HumanResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HumanResource   $human_resource
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+        if ($this->checkRememberToken($request['remember_token'])) {
+            return response()->json([
+                'message' => 'not a valid user, please re login',
+                'redirect_to' => 'login page'
+            ]);
+        }
+
         $validated = $request->validate([
             'remember_token' => 'required',
             'nama' => 'required|max:50',
@@ -95,13 +103,6 @@ class HumanResourceController extends Controller
             'jabatan' => 'max:20|nullabel',
             'foto' => 'image|nullable'
         ]);
-
-        if (!User::check_token($validated['remember_token'])) {
-            return response()->json([
-                'message' => 'not a valid user, please re login',
-                'redirect_to' => 'login page'
-            ]);
-        }
 
         $hr = HumanResource::find($id);
         $hr->nama = $validated['nama'];
@@ -122,12 +123,12 @@ class HumanResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\HumanResource   $human_resource
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HumanResource $human_resource, $id)
+    public function destroy($id)
     {
-        $hr = $human_resource->find($id);
+        $hr = HumanResource::find($id);
         $hr->delete();
 
         return response()->json([

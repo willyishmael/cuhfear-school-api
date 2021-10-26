@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HumanResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,20 +16,17 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::post('/login', [UserController::class,'login'])->name('auth.login');
+
+/**
+ * Login required to access these routes
+ */
 Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
+
+    Route::get('/user', [UserController::class, 'user'])->name('auth.user');
 
     Route::resource('/human-resource', HumanResourceController::class)->except(['create', 'edit']);
 
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    });
-
-    Route::get('/logout', function (Request $request) {
-        return $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
-    });
-
 });
-
-
-Route::post('/login', [UserController::class,'index']);
-

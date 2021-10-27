@@ -12,20 +12,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    public function index() {return response(Post::all());}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function postByCategory($category){return response(Post::where('category', $category)->get());}
+
+    public function listCategory(){return response(Post::select('category')->distinct()->get());}
+
+    public function postByAuthor($author){return response(Post::where('author', $author)->get());}
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +28,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'category' => 'required',
+            'title' => 'required|max:50',
+            'body' => 'required',
+            'thumbnail' => 'nullable|image'
+        ]);
+
+        $validated['author'] = $request->user()['name'];
+
+        Post::create($validated);
+
+        return response([
+            'message' => 'new data has been added to HumanResources'
+        ]);
     }
 
     /**
@@ -44,20 +50,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
+        return response([
+            'message' => 'show spesific item',
+            'item' => Post::find($id)
+        ]);
     }
 
     /**
@@ -67,9 +65,26 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'category' => 'required',
+            'title' => 'required|max:50',
+            'body' => 'required',
+            'thumbnail' => 'nullable|image'
+        ]);
+
+        $post = Post::find($id);
+        $post->category = $validated['category'];
+        $post->title = $validated['title'];
+        $post->body = $validated['body'];
+        $post->thumbnail = $validated['thumbnail'];
+        $post->save();
+
+        return response([
+            'message' => 'Data has been updated',
+            'updated_data' => $post
+        ]);
     }
 
     /**
@@ -78,8 +93,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+
+        return response()->json([
+            'message' => 'A data has been deleted from Posts',
+        ]);
     }
 }

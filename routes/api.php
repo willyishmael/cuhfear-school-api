@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HumanResourceController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('/human-resource', HumanResourceController::class)->except(['create', 'edit']);
     Route::resource('/student', StudentController::class)->except(['create', 'edit']);
+
+    Route::resource('/post', PostController::class)->except(['create', 'edit']);
+    Route::get('/post/category/{category}', [PostController::class, 'category']);
+    Route::get('/post-category', [PostController::class ,'listCategory']);
 
 });

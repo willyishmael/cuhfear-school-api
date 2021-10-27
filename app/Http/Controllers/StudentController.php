@@ -12,20 +12,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function index() {return response(Student::all());}
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +22,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|max:50',
+            'jenis_kelamin' => 'required|max:20',
+            'nisn' => 'required|max:20',
+            'tanggal_lahir' => 'required|date',
+            'jurusan' => 'required|max:20',
+            'tahun_masuk' => 'required|year',
+            'jabatan' => 'nullable|max:20',
+            'status' => 'required|max:20',
+        ]);
+
+        Student::create($validated);
+
+        return response([
+            'message' => 'new data has been added to Student'
+        ]);
     }
 
     /**
@@ -44,20 +46,12 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //
+        return response([
+            'message' => 'show spesific item',
+            'item' => Student::find($id)
+        ]);
     }
 
     /**
@@ -67,9 +61,34 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|max:50',
+            'jenis_kelamin' => 'required|max:20',
+            'nisn' => 'required|max:20',
+            'tanggal_lahir' => 'required|date',
+            'jurusan' => 'required|max:20',
+            'tahun_masuk' => 'required|year',
+            'jabatan' => 'nullable|max:20',
+            'status' => 'required|max:20',
+        ]);
+
+        $student = Student::find($id);
+        $student->nama = $validated['nama'];
+        $student->jenis_kelamin = $validated['jenis_kelamin'];
+        $student->nisn = $validated['nisn'];
+        $student->tanggal_lahir = $validated['tanggal_lahir'];
+        $student->jurusan = $validated['jurusan'];
+        $student->tahun_masuk = $validated['tahun_masuk'];
+        $student->jabatan = $validated['jabatan'];
+        $student->status = $validated['status'];
+        $student->save();
+
+        return response([
+            'message' => 'Data has been updated',
+            'updated_data' => $student
+        ]);
     }
 
     /**
@@ -78,8 +97,12 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        Student::find($id)->delete();
+
+        return response()->json([
+            'message' => 'A data has been deleted from Student',
+        ]);
     }
 }

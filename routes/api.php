@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HumanResourceController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +28,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/user', [UserController::class, 'user'])->name('auth.user');
 
     Route::resource('/human-resource', HumanResourceController::class)->except(['create', 'edit']);
+    Route::resource('/student', StudentController::class)->except(['create', 'edit']);
 
 });

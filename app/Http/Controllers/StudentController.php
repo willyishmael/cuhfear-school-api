@@ -25,11 +25,12 @@ class StudentController extends Controller
         $validated = $request->validate([
             'nama' => 'required|max:50',
             'jenis_kelamin' => 'required|max:20',
-            'nip' => 'max:20|nullable',
+            'nisn' => 'required|max:20',
             'tanggal_lahir' => 'required|date',
-            'peran' => 'required|max:20',
-            'jabatan' => 'max:20|nullabel',
-            'foto' => 'image|nullable'
+            'jurusan' => 'required|max:20',
+            'tahun_masuk' => 'required|year',
+            'jabatan' => 'nullable|max:20',
+            'status' => 'required|max:20',
         ]);
 
         Student::create($validated);
@@ -65,26 +66,28 @@ class StudentController extends Controller
         $validated = $request->validate([
             'nama' => 'required|max:50',
             'jenis_kelamin' => 'required|max:20',
-            'nip' => 'max:20|nullable',
+            'nisn' => 'required|max:20',
             'tanggal_lahir' => 'required|date',
-            'peran' => 'required|max:20',
-            'jabatan' => 'max:20|nullabel',
-            'foto' => 'image|nullable'
+            'jurusan' => 'required|max:20',
+            'tahun_masuk' => 'required|year',
+            'jabatan' => 'nullable|max:20',
+            'status' => 'required|max:20',
         ]);
 
-        $hr = Student::find($id);
-        $hr->nama = $validated['nama'];
-        $hr->jenis_kelamin = $validated['jenis_kelamin'];
-        $hr->nip = $validated['nip'];
-        $hr->tanggal_lahir = $validated['tanggal_lahir'];
-        $hr->peran = $validated['peran'];
-        $hr->jabatan = $validated['jabatan'];
-        $hr->foto = $validated['foto'];
-        $hr->save();
+        $student = Student::find($id);
+        $student->nama = $validated['nama'];
+        $student->jenis_kelamin = $validated['jenis_kelamin'];
+        $student->nisn = $validated['nisn'];
+        $student->tanggal_lahir = $validated['tanggal_lahir'];
+        $student->jurusan = $validated['jurusan'];
+        $student->tahun_masuk = $validated['tahun_masuk'];
+        $student->jabatan = $validated['jabatan'];
+        $student->status = $validated['status'];
+        $student->save();
 
         return response([
             'message' => 'Data has been updated',
-            'updated_data' => $hr
+            'updated_data' => $student
         ]);
     }
 

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+
 class PostController extends Controller
 {
     /**
@@ -37,14 +38,12 @@ class PostController extends Controller
             'thumbnail' => 'nullable|image|file|max:5120'
         ]);
 
-        if ($request->file('image')) {
-            $validated['image'] = $request->file('image')->store('post-images');
+        if ($request->file('thumbnail')) {
+            $validated['thumbnail'] = $request->file('thumbnail')->store('post-images');
         }
 
         $validated['author'] = $request->user()['name'];
         $validated['exerpt'] = Str::limit(strip_tags($validated['body']), 200);
-
-        $request->file('thumbnail')->store('post-images');
 
         Post::create($validated);
 
@@ -61,10 +60,16 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return response([
-            'message' => 'show spesific item',
-            'item' => Post::find($id)
-        ]);
+        $post = Post::find($id);
+        $path ='storage/'.$post->thumbnail;
+
+        return response(
+            // [
+            // 'message' => 'show spesific item',
+            // 'item' => $post,
+            // 'path' => $path
+        // ]
+        )->file($path);
     }
 
     /**

@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
             $table->string('author', 20);
             $table->text('body');
             $table->string('exerpt', 200);
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

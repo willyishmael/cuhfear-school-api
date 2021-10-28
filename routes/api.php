@@ -24,14 +24,16 @@ Route::post('/login', [UserController::class,'login'])->name('auth.login');
  */
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
-    Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
+    Route::get('logout', [UserController::class, 'logout'])->name('auth.logout');
 
-    Route::get('/user', [UserController::class, 'user'])->name('auth.user');
+    Route::get('user', [UserController::class, 'user'])->name('auth.user');
 
-    Route::resource('/human-resource', HumanResourceController::class)->except(['create', 'edit']);
-    Route::resource('/student', StudentController::class)->except(['create', 'edit']);
+    Route::apiResources([
+        'human-resource' => HumanResourceController::class,
+        'student' => StudentController::class,
+        'post' => PostController::class
+    ]);
 
-    Route::resource('/post', PostController::class)->except(['create', 'edit']);
     Route::get('/post/category/{category}', [PostController::class, 'category']);
     Route::get('/post-category', [PostController::class ,'listCategory']);
 

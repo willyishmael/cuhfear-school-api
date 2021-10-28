@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -31,11 +32,19 @@ class PostController extends Controller
         $validated = $request->validate([
             'category' => 'required',
             'title' => 'required|max:50',
+            'slug' => 'required|unique:posts',
             'body' => 'required',
-            'thumbnail' => 'nullable|image'
+            'thumbnail' => 'nullable|image|file|max:5120'
         ]);
 
+        if ($request->file('image')) {
+            $validated['image'] = $request->file('image')->store('post-images');
+        }
+
         $validated['author'] = $request->user()['name'];
+        $validated['exerpt'] = Str::limit(strip_tags($validated['body']), 200);
+
+        $request->file('thumbnail')->store('post-images');
 
         Post::create($validated);
 

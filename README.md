@@ -7,6 +7,46 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Configuration
+
+Follow these steps to run this api, make sure you have already installed all the requirments:
+- [Laravel 8](https://laravel.com/docs/8.x/installation)
+- [Composer](https://getcomposer.org)
+- [PHP](https://www.php.net) or just install [XAMPP](https://www.apachefriends.org/download.html)
+- [Valet](https://laravel.com/docs/8.x/valet) or [Valet for Windows](https://packagist.org/packages/cretueusebiu/valet-windows)
+
+Run these commands on terminal:
+```bash
+composer install
+
+npm install
+
+npm run dev
+```
+
+Copy `.env.example` file to `.env`:
+```bash
+cp .env.example .env
+```
+After that create database on MySQL or whatever and configure database connection on `.env`. Add this line `FILESYSTEM_DRIVER=public` at the bottom.
+
+If there is no `APP_KEY` yet, run this command:
+```bash
+php artisan key generate
+```
+
+Run the migration and seeder:
+```bash
+php artisan migrate --seed
+```
+
+Make storage link:
+```bash
+php artisan storage:link
+```
+
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

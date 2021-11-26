@@ -16,7 +16,7 @@ class CreateHumanResourcesTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('peran', 20);
             $table->string('jabatan', 20)->nullable();
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->timestampsTz();
         });
     }

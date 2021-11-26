@@ -29,8 +29,12 @@ class HumanResourceController extends Controller
             'tanggal_lahir' => 'required|date',
             'peran' => 'required|max:20',
             'jabatan' => 'max:20|nullabel',
-            'foto' => 'image|nullable'
+            'foto' => 'nullable|image|file|max:5120'
         ]);
+
+        if ($request->file('foto')) {
+            $validated['foto'] = $request->file('foto')->store('post-images');
+        }
 
         HumanResource::create($validated);
 

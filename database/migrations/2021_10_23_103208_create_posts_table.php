@@ -12,9 +12,11 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('category', 20);
             $table->string('title', 50);
+            $table->string('slug', 50);
             $table->string('author', 20);
             $table->text('body');
-            $table->string('thumbnail');
+            $table->string('exerpt', 200);
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

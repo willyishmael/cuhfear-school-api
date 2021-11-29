@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HumanResourceController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\PostController;
+use App\Models\StudentRegistration;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources([
         'human-resource' => HumanResourceController::class,
         'student' => StudentController::class,
-        'post' => PostController::class
+        'post' => PostController::class,
+        'student-registration' => StudentRegistration::class
     ]);
 
     Route::get('/post/category/{category}', [PostController::class, 'category']);

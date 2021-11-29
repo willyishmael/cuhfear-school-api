@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentRegistration;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class StudentRegistrationController extends Controller
@@ -15,17 +14,7 @@ class StudentRegistrationController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+        return response(StudentRegistration::all());
     }
 
     /**
@@ -34,24 +23,16 @@ class StudentRegistrationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $jalur)
+    public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|max:50',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required|max:20',
-            'tanggal_lahir' => 'required|date',
-            'alamat' => 'required',
-            'email' => 'required|email',
-            'nomor_telepon' => 'required',
-            'nama_wali' => 'required|max:50',
-            'nomor_telepon_wali' => 'required|phone'
-        ]);
-
-        $validated['jalur_pendaftaran'] = $jalur;
-        $validated['tahun_daftar'] = date("Y");
+        $validated = $request->validated();
 
         StudentRegistration::create($validated);
+
+        return response([
+            'message' => 'Data has been stored',
+            'stored_data' => $validated
+        ]);
     }
 
     /**
@@ -60,20 +41,12 @@ class StudentRegistrationController extends Controller
      * @param  \App\Models\StudentRegistration  $studentRegistration
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentRegistration $studentRegistration)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\StudentRegistration  $studentRegistration
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StudentRegistration $studentRegistration)
-    {
-        //
+        return response([
+            'message' => 'Show spesific item',
+            'item' => StudentRegistration::find($id)
+        ]);
     }
 
     /**
@@ -89,6 +62,11 @@ class StudentRegistrationController extends Controller
 
         $data = StudentRegistration::find($id);
         $data->update($validated);
+
+        return response([
+            'message' => 'Data has been updated',
+            'updated_data' => $data
+        ]);
     }
 
     /**
@@ -97,8 +75,12 @@ class StudentRegistrationController extends Controller
      * @param  \App\Models\StudentRegistration  $studentRegistration
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StudentRegistration $studentRegistration)
+    public function destroy($id)
     {
-        //
+        StudentRegistration::find($id)->delete();
+
+        return response([
+            'message' => 'A data has been deleted'
+        ]);
     }
 }

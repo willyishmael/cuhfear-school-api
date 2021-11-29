@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentRegistration;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class StudentRegistrationController extends Controller
@@ -24,7 +25,7 @@ class StudentRegistrationController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -33,9 +34,24 @@ class StudentRegistrationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $jalur)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|max:50',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required|max:20',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required',
+            'email' => 'required|email',
+            'nomor_telepon' => 'required',
+            'nama_wali' => 'required|max:50',
+            'nomor_telepon_wali' => 'required|phone'
+        ]);
+
+        $validated['jalur_pendaftaran'] = $jalur;
+        $validated['tahun_daftar'] = date("Y");
+
+        StudentRegistration::create($validated);
     }
 
     /**
@@ -67,9 +83,12 @@ class StudentRegistrationController extends Controller
      * @param  \App\Models\StudentRegistration  $studentRegistration
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentRegistration $studentRegistration)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate();
+
+        $data = StudentRegistration::find($id);
+        $data->update($validated);
     }
 
     /**

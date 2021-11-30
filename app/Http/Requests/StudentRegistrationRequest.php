@@ -14,7 +14,7 @@ class StudentRegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -46,7 +46,7 @@ class StudentRegistrationRequest extends FormRequest
             'sk_tidak_mampu' => 'nullable|file|max:2048',
             'sk_pindah_tugas' => 'nullable|file|max:2048',
             'sertifikat_prestasi' => 'nullable|file|max:2048',
-            'sp_keabsahan_dokumen' => 'nullable|file|max:2048',
+            'sp_keabsahan_dokumen' => 'required|file|max:2048',
         ];
     }
 }

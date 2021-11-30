@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRegistrationRequest;
 use App\Models\StudentRegistration;
 use Illuminate\Http\Request;
 
@@ -23,16 +24,34 @@ class StudentRegistrationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRegistrationRequest $request)
     {
         $validated = $request->validated();
 
-        StudentRegistration::create($validated);
+        $validatedData = $this->storeFile([
+            'kartu_keluarga', 'sc_jarak_rumah', 'sk_domisili',
+            'sk_lulus', 'sk_tidak_mampu', 'sk_pindah_tugas',
+            'sertifikat_prestasi', 'sp_keabsahan_dokumen'
+        ], $request, $validated);
+
+        $validatedData['tahun_daftar'] = date('Y');
+
+        StudentRegistration::create($validatedData);
 
         return response([
             'message' => 'Data has been stored',
             'stored_data' => $validated
         ]);
+    }
+
+    private function storeFile(array $fileKeys, Request $request, array $validatedData) {
+        for ($i = 0; $i < count($fileKeys); $i++) {
+            $key = $fileKeys[$i];
+            if ($request->file($key)) {
+                $validatedData[$key] = $request->file($key)->store("$key-files");
+            }
+        }
+        return $validatedData;
     }
 
     /**
@@ -56,12 +75,18 @@ class StudentRegistrationController extends Controller
      * @param  \App\Models\StudentRegistration  $studentRegistration
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StudentRegistrationRequest $request, $id)
     {
         $validated = $request->validate();
 
+        $validatedData = $this->storeFile([
+            'kartu_keluarga', 'sc_jarak_rumah', 'sk_domisili',
+            'sk_lulus', 'sk_tidak_mampu', 'sk_pindah_tugas',
+            'sertifikat_prestasi', 'sp_keabsahan_dokumen'
+        ], $request, $validated);
+
         $data = StudentRegistration::find($id);
-        $data->update($validated);
+        $data->update($validatedData);
 
         return response([
             'message' => 'Data has been updated',

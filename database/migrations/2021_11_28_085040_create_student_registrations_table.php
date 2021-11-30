@@ -29,7 +29,7 @@ class CreateStudentRegistrationsTable extends Migration
             $table->string('asal_sekolah');
             $table->string('kartu_keluarga');
             $table->string('sc_jarak_rumah')->nullable();
-            $table->string('sk_domisili');
+            $table->string('sk_domisili')->nullable();
             $table->string('sk_lulus');
             $table->string('sk_tidak_mampu')->nullable();
             $table->string('sk_pindah_tugas')->nullable();
